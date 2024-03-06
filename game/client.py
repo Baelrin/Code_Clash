@@ -1,6 +1,6 @@
 import pygame
-from network import Network
-from player import Player
+from game.network import Network
+from game.player import Player
 
 width = 500
 height = 500
