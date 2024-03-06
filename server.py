@@ -3,7 +3,7 @@ import socket
 from _thread import *
 from player import Player
 
-server = '192.168.8.100'
+server = 'Your IP'
 port = 5555
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
