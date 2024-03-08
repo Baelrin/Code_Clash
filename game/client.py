@@ -38,7 +38,20 @@ def redrawWindow(win, player, player2):
 
 btns = [Button('Rock', 50, 500, (0, 0, 255)), Button('Scissors', 250, 500, (255, 0, 0)), Button('Paper', 450, 500, (0, 255, 0))]
 def main():
-    pass
+    run = True
+    clock = pygame.time.Clock()
+    n = Network()
+    player = int(n.getP())
+    print('You are player', player)
+    
+    while run:
+        clock.tick(60)
+        try:
+            game = n.send('get')
+        except:
+            run = False
+            print("Couldn't get game")
+            break
 
 
 main()
