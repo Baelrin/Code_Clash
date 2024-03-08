@@ -34,7 +34,18 @@ class Button:
 
 def redrawWindow(win, player, player2):
     win.fill((255, 255, 255))
-    pass
+    
+    if not(game.connected()):
+        font = pygame.font.SysFont('comicsans', 80)
+        text = font.render('Waiting for Player...', 1, (255, 0, 0), True)
+        win.blit(text, (width/2 - text.get_width()/2, height/2 - text.get_height()/2))
+    else:
+        font = pygame.font.SysFont('comicsans', 60)
+        text = font.render('Your Move', 1, (0, 255, 255))
+        win.blit(text, (80, 200))
+        
+        text = font.render("Opponent's", 1, (0, 255, 255))
+        win.blit(text, (380, 200))
 
 btns = [Button('Rock', 50, 500, (0, 0, 255)), Button('Scissors', 250, 500, (255, 0, 0)), Button('Paper', 450, 500, (0, 255, 0))]
 def main():
@@ -52,6 +63,44 @@ def main():
             run = False
             print("Couldn't get game")
             break
+        if game.bothWent():
+            redrawWindow()
+            pygame.time.delay(500)
+            try:
+                game = n.send('reset')
+            except:
+                run = False
+                print("Couldn't get game")
+                break
 
+            font = pygame.font.SysFont("comicsans", 90)
+            if (game.winner() == 1 and player == 1) or (game.winner() == 0 and player == 0):
+                text = font.render('Win!', 1, (255, 0, 0))
+            elif game.winner == -1:
+                text = font.render('Tie Game!', 1, (255, 0, 0))
+            else:
+                text = font.render('Lost...', 1, (255, 0, 0))
+            
+            win.blit(text, (width/2 - text.get_width()/2, height/2 - text.get_height()/2))
+            pygame.display.update()
+            pygame.time.delay(2000)
+            
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT 
+                run = False
+                pygame.quit()
+                
+            if event.type == pygame.pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                for btn in btns:
+                    if btn.click(pos) and game.connected():
+                        if player == 0:
+                            if not game.p1Went:
+                                n.send(btn.text)
+                        else:
+                            if not game.p2Went:
+                                n.send(btn.text)
+                                
+        redrawWindows(win, game, p)
 
 main()
