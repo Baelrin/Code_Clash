@@ -62,17 +62,18 @@ def redrawWindow(win, player, player2):
                 
             if game.p2Went and p == 0:
                 text2 = font.render(move2, 1, (0, 0, 0))
-            elif game.p1Went:
+            elif game.p2Went:
                 text2 = font.render("Locked In", 1, (0, 0, 0))
             else:
                 text2 = font.render("Waiting...", 1, (0, 0, 0))
                 
-            if p == 1:
-                win.blit(text2, (100, 350))
-                win.blit(text1, (400, 350))
-            else:
-                win.blit(text1, (100, 350))
-                win.blit(text2, (400, 350))
+        if p == 1:
+            win.blit(text2, (100, 350))
+            win.blit(text1, (400, 350))
+        else:
+            win.blit(text1, (100, 350))
+            win.blit(text2, (400, 350))
+            
         for btn in btns:
             btn.draw(win)
             
@@ -107,7 +108,7 @@ def main():
             font = pygame.font.SysFont("comicsans", 90)
             if (game.winner() == 1 and player == 1) or (game.winner() == 0 and player == 0):
                 text = font.render('Win!', 1, (255, 0, 0))
-            elif game.winner == -1:
+            elif game.winner() == -1:
                 text = font.render('Tie Game!', 1, (255, 0, 0))
             else:
                 text = font.render('Lost...', 1, (255, 0, 0))
@@ -134,4 +135,27 @@ def main():
                                 
         redrawWindows(win, game, player)
 
-main()
+def menu_screen():
+    run = True
+    clock = pygame.time.Clock()
+    
+    
+    while run:
+        clock.tick(60)
+        win.fill((128, 128, 128))
+        font = pygame.font.SysFont('comicsans', 60)
+        text = font.render('Click to Play!', 1, (255, 0, 0))
+        win.blit(text, (100, 200))
+        pygame.display.update()
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                run = False
+            if event.type == pygame.pygame.MOUSEBUTTONDOWN:
+                run = False
+
+    main()
+    
+while True:
+    menu_screen()
