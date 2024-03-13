@@ -10,7 +10,7 @@ class Network:
         self.addr = (self.server, self.port)
         self.p = self.connect()
 
-    def getP(self):
+    def getP(self) -> Optional[str]:
         return self.p
 
     def connect(self):
