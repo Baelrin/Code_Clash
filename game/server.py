@@ -1,9 +1,11 @@
+# TODO УЛУЧШИ КОД
+
 import socket
 from _thread import *
 import pickle
 from game import Game
 
-server = 'Your IP'
+server = "Your IP"
 port = 5555
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -63,7 +65,7 @@ while True:
 
     idCount += 1
     p = 0
-    gameId = (idCount - 1)//2
+    gameId = (idCount - 1) // 2
     if idCount % 2 == 1:
         games[gameId] = Game(gameId)
         print("Creating a new game...")
