@@ -13,6 +13,7 @@ pygame.display.set_caption("Client")
 
 class Button:
     """Represents a clickable button on the screen."""
+
     def __init__(self, text, x, y, color):
         self.text = text
         self.x = x
@@ -100,7 +101,7 @@ def main():
     run = True
     clock = pygame.time.Clock()
     n = Network()
-    player = int(n.getP()) if n.getP() is not None and isinstance(n.getP(), str) else 0
+    player = int(str(n.getP())) if n.getP() is not None else 0
     print("You are player", player)
 
     while run:
